@@ -376,6 +376,23 @@ textarea.form-input { resize: vertical; min-height: 92px; line-height: 1.6; }
 }
 .toast.show { opacity: 1; }
 
+.feedback-banner {
+  position: fixed; bottom: 22px; right: 22px; max-width: 320px;
+  background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--gold);
+  border-radius: var(--radius); padding: 16px 18px; box-shadow: 0 6px 20px rgba(0,0,0,.12);
+  font-size: 13px; color: var(--text2); line-height: 1.5; z-index: 60;
+  opacity: 0; transform: translateY(12px); pointer-events: none; transition: opacity .25s, transform .25s;
+}
+.feedback-banner.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.feedback-banner .fb-close {
+  position: absolute; top: 8px; right: 10px; cursor: pointer; color: var(--text2); opacity: .6; font-size: 14px;
+}
+.feedback-banner .fb-close:hover { opacity: 1; }
+.feedback-banner a { color: var(--teal); font-weight: 700; text-decoration: underline; }
+@media (max-width: 640px) {
+  .feedback-banner { left: 16px; right: 16px; max-width: none; }
+}
+
 .screen { display: none; }
 .screen.active { display: block; }
 
@@ -387,7 +404,7 @@ textarea.form-input { resize: vertical; min-height: 92px; line-height: 1.6; }
 .landing .cta-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 50px; }
 .landing .btn-primary { padding: 12px 26px; font-size: 15px; }
 .land-section-h { font-family: var(--font-display); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--text2); margin: 0 0 16px; }
-.outcome-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 50px; }
+.outcome-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 50px; }
 .outcome-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; border-top: 4px solid var(--gold); }
 .outcome-card.t-char { border-top-color: var(--tier-character); }
 .outcome-card.t-dur  { border-top-color: var(--tier-durable); }
@@ -400,7 +417,7 @@ textarea.form-input { resize: vertical; min-height: 92px; line-height: 1.6; }
 .how-step .hs-num { font-family: var(--font-display); font-size: 22px; color: var(--gold); margin-bottom: 8px; }
 .how-step .hs-text { font-size: 12.5px; color: var(--text); line-height: 1.55; }
 .how-step .hs-text b { color: var(--char); }
-.trust-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 36px; }
+.trust-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 36px; }
 .trust-item { font-size: 12.5px; color: var(--text2); line-height: 1.55; padding-left: 24px; position: relative; }
 .trust-item::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--teal); font-weight: 700; }
 .trust-item b { color: var(--char); }
@@ -496,6 +513,11 @@ textarea.form-input { resize: vertical; min-height: 92px; line-height: 1.6; }
         <div class="oc-label">Reflection prompts</div>
         <div class="oc-desc">Timed to the assignment and aimed at the skills students are building.</div>
       </div>
+      <div class="outcome-card">
+        <div class="oc-icon">📝</div>
+        <div class="oc-label">Teaching notes</div>
+        <div class="oc-desc">A companion page for your own use — the intent behind the assignment, in your words.</div>
+      </div>
     </div>
 
     <div class="land-section-h">How it works</div>
@@ -503,13 +525,14 @@ textarea.form-input { resize: vertical; min-height: 92px; line-height: 1.6; }
       <div class="how-step"><div class="hs-num">1</div><div class="hs-text">Start from an assignment you <b>already have</b> — or a blank slate.</div></div>
       <div class="how-step"><div class="hs-num">2</div><div class="hs-text">Answer a few <b>guided</b> questions: purpose, AI use, skills it builds.</div></div>
       <div class="how-step"><div class="hs-num">3</div><div class="hs-text">Review what the AI drafts and <b>make it yours</b>.</div></div>
-      <div class="how-step"><div class="hs-num">4</div><div class="hs-text">Download the <b>brief, rubric, and prompts</b>.</div></div>
+      <div class="how-step"><div class="hs-num">4</div><div class="hs-text">Download the <b>brief, rubric, prompts, and teaching notes</b>.</div></div>
     </div>
 
     <div class="trust-row">
       <div class="trust-item"><b>Free, no account.</b> Nothing to sign up for, ever.</div>
       <div class="trust-item"><b>Nothing stored or shared.</b> What you make is yours to download.</div>
       <div class="trust-item"><b>The AI drafts, you decide.</b> Every word is yours to keep or change.</div>
+      <div class="trust-item"><b>Transparent about the AI cost.</b> A full build — brief, rubric, prompts, and teaching notes — runs about $0.15–$0.35 in AI use and roughly the electricity of charging a phone partway.</div>
     </div>
 
     <p class="pedagogy-line">Make the assignment clear, capture the thinking through reflection, and teach the skills out loud — that's how a project becomes durable, transferable skill that students can see, name, and carry into their careers.</p>
@@ -530,10 +553,13 @@ textarea.form-input { resize: vertical; min-height: 92px; line-height: 1.6; }
 
 <div id="print-area"></div>
 <div class="toast" id="toast"></div>
+<div class="feedback-banner" id="feedback-banner"></div>
 
 <footer style="text-align:center;padding:26px 20px;color:var(--text2);font-size:11.5px;line-height:1.6;border-top:1px solid var(--border);margin-top:20px">
   © 2026 Valarie Kite. All rights reserved. &nbsp;·&nbsp; uThought Assignment Builder.<br>
-  <span style="opacity:.8">Original selection and arrangement protected as a compilation. Portions of source code generated by artificial intelligence.</span>
+  <span style="opacity:.8">Original selection and arrangement protected as a compilation. Portions of source code generated by artificial intelligence.</span><br>
+  <a href="mailto:vlk2086@gmail.com?subject=uThought%20Assignment%20Builder%20feedback" style="color:var(--teal);text-decoration:underline">Give feedback</a>
+  <span style="opacity:.6"> &nbsp;·&nbsp; This tool is in a testing phase — feedback shapes what gets built next.</span>
 </footer>
 
 <script>
@@ -1619,10 +1645,12 @@ function artifactPreviewHTML(key){ return key==='brief'?buildBriefHTML():key==='
 
 /* ══════════════════ Export actions ══════════════════ */
 function copyArtifact(key){ navigator.clipboard.writeText(artifactMD(key)).then(()=>toast('Copied to clipboard.')).catch(()=>toast('Copy failed.')); }
+const ARTIFACT_LABEL = { brief:'brief', rubric:'rubric', prompts:'reflection prompts', teaching:'teaching notes' };
 function downloadArtifact(key,fmt){
   const name = (A.header.title||'assignment').replace(/[^a-z0-9]+/gi,'-').toLowerCase();
   if (fmt==='doc'){ downloadFile(`${name}-${key}.doc`, wordDoc(artifactPreviewHTML(key)), 'application/msword'); }
   else { downloadFile(`${name}-${key}.html`, htmlDoc(artifactPreviewHTML(key)), 'text/html'); }
+  showFeedbackPrompt(ARTIFACT_LABEL[key] || key);
 }
 function exportAll(fmt){
   const pb = '<div style="page-break-before:always"></div>';
@@ -1632,6 +1660,7 @@ function exportAll(fmt){
   if (fmt==='html') downloadFile(`${name}-all.html`, htmlDoc(inner), 'text/html');
   else downloadFile(`${name}-all.doc`, wordDoc(inner), 'application/msword');
   toast('Combined export downloaded.');
+  showFeedbackPrompt('combined package');
 }
 function downloadFile(filename, content, mime){
   const blob = new Blob([content], {type:mime}); const url=URL.createObjectURL(blob);
@@ -1681,6 +1710,19 @@ function loadSample(){
 function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 let toastT;
 function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),2200); }
+let feedbackT;
+function showFeedbackPrompt(what){
+  const b = document.getElementById('feedback-banner');
+  const subject = encodeURIComponent('uThought feedback — after downloading ' + what);
+  const body = encodeURIComponent('What worked, what didn\'t, what you\'d change:\n\n');
+  b.innerHTML = `<span class="fb-close" onclick="hideFeedbackPrompt()">✕</span>
+    Got 30 seconds? You just downloaded the <b>${esc(what)}</b> — I'd love to know how it worked for you.
+    <br><a href="mailto:vlk2086@gmail.com?subject=${subject}&body=${body}" onclick="hideFeedbackPrompt()">Send quick feedback →</a>`;
+  b.classList.add('show');
+  clearTimeout(feedbackT);
+  feedbackT = setTimeout(hideFeedbackPrompt, 12000);
+}
+function hideFeedbackPrompt(){ document.getElementById('feedback-banner').classList.remove('show'); }
 
 /* ══════════════════ Init ══════════════════ */
 // One-time fresh start: clears any previously saved draft the first time this
