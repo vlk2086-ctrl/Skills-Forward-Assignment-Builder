@@ -581,7 +581,7 @@ async function callClaudeAPI(messages, maxTokens) {
       const res = await fetch('https://uthought-proxy.uthought.workers.dev', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: maxTokens || 1000, messages })
+        body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: maxTokens || 1000, messages })
       });
       const rawBody = await res.text();
       if (!res.ok) {
